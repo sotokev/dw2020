@@ -1,0 +1,24 @@
+spring:
+
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/umg_desarrollo_web?zeroDateTimeBehavior=convertToNull
+    username: root
+    password: 26d32179@M
+    test-while-idle: true
+    validation-query: SELECT 1
+    max-wait: 10000
+    max-active: 300
+    test-on-borrow: true
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    show-sql: true
+    hibernate:
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+      ddl-auto: none
