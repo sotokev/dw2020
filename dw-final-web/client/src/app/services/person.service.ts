@@ -14,22 +14,22 @@ export class PersonService {
   constructor(private http: HttpClient) { }
 
   getPersons() {
-    return this.http.get(`${this.API_URI}/all`);
+    return this.http.get(`${this.API_URI}all`);
   }
 
   getPerson(id: string) {
-    return this.http.get(`${this.API_URI}/persons/${id}`);
+    return this.http.get(`${this.API_URI}${id}`);
   }
 
   savePerson(person: Person) {
-    return this.http.post(`${this.API_URI}/persons`, person);
+    return this.http.post(`${this.API_URI}`, person);
   }
 
   deletePerson(id: string) {
-    return this.http.delete(`${this.API_URI}/persons/${id}`);
+    return this.http.delete(`${this.API_URI}${id}`);
   }
 
-  udatePerson(id: string, person: Person): Observable<Person> {
-    return this.http.put(`${this.API_URI}/persons/${id}`, person);
+  updatePerson(person: Person): Observable<Person> {
+    return this.http.put(`${this.API_URI}`, person);
   }
 }

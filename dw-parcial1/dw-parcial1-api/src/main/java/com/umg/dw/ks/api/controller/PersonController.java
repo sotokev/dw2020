@@ -51,4 +51,12 @@ public class PersonController {
         persona = personRepository.save(persona);
         return persona;
     }
+
+    @RequestMapping(
+            value = "/{id}",
+            method = RequestMethod.DELETE,
+            produces = "application/json")
+    public void delete(@PathVariable("id") int id) {
+        personRepository.deleteById(id);
+    }
 }

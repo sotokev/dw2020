@@ -2,7 +2,7 @@
     <div class="card text-center">
       <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
         {{person.name}}
-        <button class="btn btn-danger">
+        <button class="btn btn-danger" (click)="deletePerson(person.id)">
             <i class="far fa-trash-alt"></i>
         </button>
       </div>
@@ -10,7 +10,7 @@
           <p>{{person.name}} {{person.lastName}}<br/>
               {{person.direction}}
           </p>
-        <a href="" class="btn btn-info btn-blcok">
+        <a class="btn btn-info btn-blcok" [routerLink]="['/person/edit', person.id]">
             EDIT PERSON
         </a>
       </div>

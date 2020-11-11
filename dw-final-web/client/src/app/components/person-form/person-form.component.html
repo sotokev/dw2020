@@ -1,1 +1,29 @@
-<p>person-form works!</p>
+<div class="col-md-4 offset-md-4">
+    <div class="card">
+        <div class="card-body">
+            <form>
+                <div class="form-group">
+                    <label for=""></label>
+                    <input type="text" name="name" id="" [(ngModel)]="person.name" class="form-control" placeholder="Nombre" aria-describedby="helpId"
+                        autofocus>
+                    <small id="helpId" class="text-muted">Nombre de persona</small>
+                </div>
+                <div class="form-group">
+                    <label for=""></label>
+                    <input type="text" name="lastName" id="" [(ngModel)]="person.lastName" class="form-control" placeholder="Apellido"
+                        aria-describedby="helpId">
+                    <small id="helpId" class="text-muted">Apellido de persona</small>
+                </div>
+                <div class="form-group">
+                    <label for=""></label>
+                    <input type="text" name="identificationType" id="" [(ngModel)]="person.identificationType" class="form-control" placeholder="Tipo de identificación"
+                        aria-describedby="helpId">
+                    <small id="helpId" class="text-muted">Tipo de documento de identificación</small>
+                </div>
+                <button type="button" name="" id="" class="btn btn-success btn-block" (click)="edit ? updatePerson() : saveNewPerson()">
+                    GUARDAR
+                </button> 
+            </form>
+        </div>
+    </div>
+</div>
