@@ -1,0 +1,23 @@
+<div class="col-md-4 offset-md-4">
+    <div class="card">
+        <div class="card-body">
+            <form>
+                <div class="form-group">
+                    <label for=""></label>
+                    <input type="text" name="name" id="" [(ngModel)]="product.name" class="form-control" placeholder="Nombre" aria-describedby="helpId"
+                        autofocus>
+                    <small id="helpId" class="text-muted">Nombre de producto</small>
+                </div>
+                <div class="form-group">
+                    <label for=""></label>
+                    <input type="text" name="lastName" id="" [(ngModel)]="product.price" class="form-control" placeholder="Precio"
+                        aria-describedby="helpId">
+                    <small id="helpId" class="text-muted">Precio de producto</small>
+                </div>
+                <button type="button" name="" id="" class="btn btn-success btn-block" (click)="edit ? updateproduct() : saveNewProduct()">
+                    GUARDAR
+                </button> 
+            </form>
+        </div>
+    </div>
+</div>

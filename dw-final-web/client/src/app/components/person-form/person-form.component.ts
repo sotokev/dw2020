@@ -35,7 +35,6 @@ export class PersonFormComponent implements OnInit {
       this.personService.getPerson(params.id)
         .subscribe(
           res=> {
-            console.log(res);
             this.person = res;
             this.edit = true;
           },
@@ -48,7 +47,6 @@ export class PersonFormComponent implements OnInit {
     this.personService.savePerson(this.person)
       .subscribe(
         res => {
-          console.log(res);
           this.route.navigate(['/person']);
         },
         err => console.error(err)
@@ -59,7 +57,6 @@ export class PersonFormComponent implements OnInit {
     this.personService.updatePerson(this.person)
       .subscribe(
         res => {
-          console.log(res);
           this.route.navigate(['/person']);
         },
         err => console.error(err)

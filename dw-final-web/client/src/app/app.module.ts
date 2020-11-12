@@ -11,13 +11,18 @@ import { PersonFormComponent } from './components/person-form/person-form.compon
 import { PersonListComponent } from './components/person-list/person-list.component';
 
 import { PersonService } from "./services/person.service";
+import { ProductListComponent } from './components/product-list/product-list.component';
+import { ProductFormComponent } from './components/product-form/product-form.component';
+import { ProductService } from "./services/product.service";
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
     PersonFormComponent,
-    PersonListComponent
+    PersonListComponent,
+    ProductListComponent,
+    ProductFormComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +31,8 @@ import { PersonService } from "./services/person.service";
     FormsModule
   ],
   providers: [
-    PersonService
+    PersonService,
+    ProductService
   ],
   bootstrap: [AppComponent]
 })

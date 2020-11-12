@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container">
     <a class="navbar-brand" routerLink="/">Proyecto Final DW2020</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -7,16 +7,33 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/person" routerLinkActive="active">
-            <i class="fas fa-user-friends    "></i> 
-            Person</a>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-user-friends    "></i>Personas
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" routerLink="/person"><i class="fas fa-user-friends    "></i>
+              Listado</a>
+            <a class="dropdown-item" routerLink="/person/add"><i class="fas fa-user-cog    "></i>
+              Agregar Persona</a>
+          </div>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/person/add" routerLinkActive="active">
-            <i class="fas fa-user-cog    "></i>
-            Add person</a>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink2" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-boxes    "></i> Productos
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
+            <a class="dropdown-item" routerLink="/product" ><i class="fas fa-boxes    "></i>
+              Listado</a>
+            <a class="dropdown-item" routerLink="/product/add" ><i class="fas fa-box    "></i>
+              Agregar Producto</a>
+          </div>
         </li>
+
       </ul>
     </div>
   </div>
