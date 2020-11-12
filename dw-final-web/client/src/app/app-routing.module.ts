@@ -5,14 +5,19 @@ import { PersonListComponent } from './components/person-list/person-list.compon
 import { PersonFormComponent } from "./components/person-form/person-form.component";
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ProductFormComponent } from './components/product-form/product-form.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/person',
+    redirectTo: '/dashboard',
     pathMatch: 'full'
-  }, 
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent
+  },
   {
     path: 'person',
     component: PersonListComponent

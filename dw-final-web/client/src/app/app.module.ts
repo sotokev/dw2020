@@ -14,6 +14,9 @@ import { PersonService } from "./services/person.service";
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { ProductService } from "./services/product.service";
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+
+import { ChartsModule } from "ng2-charts";
 
 @NgModule({
   declarations: [
@@ -22,13 +25,15 @@ import { ProductService } from "./services/product.service";
     PersonFormComponent,
     PersonListComponent,
     ProductListComponent,
-    ProductFormComponent
+    ProductFormComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ChartsModule
   ],
   providers: [
     PersonService,
