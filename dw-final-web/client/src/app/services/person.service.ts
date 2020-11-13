@@ -32,4 +32,28 @@ export class PersonService {
   updatePerson(person: Person): Observable<Person> {
     return this.http.put(`${this.API_URI}`, person);
   }
+
+  public getPersonNotification(): Observable<any> {
+
+    return Observable.create((observer) => {
+
+      const url: any = this.API_URI + 'notification/sse';
+
+      const eventSource = new EventSource(url);
+
+      eventSource.onmessage = (event) => {
+        console.log('Received event: ', event);
+      };
+      
+      eventSource.addEventListener('persona-result', function (event: any) {
+        observer.next(event.data);
+      });
+
+      eventSource.addEventListener('heartbeat-result', function (event) {
+        console.log('eventSource.addEventListener: on heartbeat....');
+      });
+
+      return () => eventSource.close();
+    });
+  }
 }

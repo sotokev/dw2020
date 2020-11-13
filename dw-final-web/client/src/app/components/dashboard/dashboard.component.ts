@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 //import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { Label } from 'ng2-charts';
+import { BehaviorSubject } from 'rxjs';
+import { PersonService } from 'src/app/services/person.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,9 +12,20 @@ import { Label } from 'ng2-charts';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor(private personService: PersonService) { 
+    this.mySubject = new BehaviorSubject(null);
+  }
+
+  people: any = [];
+  products: any = [];
 
   ngOnInit(): void {
+    this.doNotificationSubscription();
+
+    // realizar subscription para subject (actualiza texto)
+    this.doSubjectSubscription();
+
+    this.updateGraph();
   }
 
   public barChartOptions: ChartOptions = {
@@ -26,14 +39,14 @@ export class DashboardComponent implements OnInit {
       }
     }
   };
-  public barChartLabels: Label[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+  public barChartLabels: Label[] = ['Personas','Productos'];
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   //public barChartPlugins = [pluginDataLabels];
 
   public barChartData: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-    { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
+    { data: [this.people.length], label: 'Personas' },
+    { data: [0], label: 'Productos' }
   ];
 
   // events
@@ -55,6 +68,51 @@ export class DashboardComponent implements OnInit {
       56,
       (Math.random() * 100),
       40 ];
+  }
+
+  public texto: String = 'empty';
+
+  private mySubject: BehaviorSubject<any>;
+
+  public doNotificationSubscription(): void {
+    try {
+      this.personService
+        .getPersonNotification()
+        .subscribe((result) => {
+
+          console.log('Mensaje recibido:' + JSON.stringify(result));
+          this.mySubject.next(result);
+
+        });
+
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  public doSubjectSubscription(): void {
+    this.mySubject.subscribe((result) => {
+      this.actualizarTexto(result);
+    });
+  }
+
+  public actualizarTexto(result: any): void {
+    this.texto = this.texto + ' ' + JSON.stringify(result);
+    //actualizarGrafica() llame a la funcion reloadChart();
+    this.updateGraph();
+  }
+
+  public updateGraph(): void{
+    console.log('updating graph');
+    this.personService.getPersons().subscribe(
+      res => {
+        this.people = res;
+      },
+      err => console.error(err)
+    )
+
+    console.log('people length: '+ this.people.length );
+    this.barChartData[0].data = [ this.people.length ];
   }
 
 }
