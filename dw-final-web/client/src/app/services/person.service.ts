@@ -33,6 +33,10 @@ export class PersonService {
     return this.http.put(`${this.API_URI}`, person);
   }
 
+  getCount() {
+    return this.http.get(`${this.API_URI}count`);
+  }
+
   public getPersonNotification(): Observable<any> {
 
     return Observable.create((observer) => {

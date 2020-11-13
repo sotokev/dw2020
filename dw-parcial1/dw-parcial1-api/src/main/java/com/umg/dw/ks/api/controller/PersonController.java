@@ -27,7 +27,7 @@ public class PersonController {
     private EmitterProcessor<Person> notificationProcessor;
 
     @PostConstruct
-    private void createProcessor(){
+    private void createProcessor() {
         notificationProcessor = EmitterProcessor.create();
     }
 
@@ -40,8 +40,17 @@ public class PersonController {
         return (List<Person>) personRepository.findAll();
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET,produces = "application/json")
-    public Person getPerson(@PathVariable("id") int id){
+    @RequestMapping(
+            value = "/count",
+            method = RequestMethod.GET,
+            produces = "application/json")
+    public long count() {
+        personRepository.flush();
+        return personRepository.count();
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
+    public Person getPerson(@PathVariable("id") int id) {
         Optional<Person> persona = personRepository.findById(id);
         return persona.get();
     }
@@ -51,9 +60,9 @@ public class PersonController {
             method = RequestMethod.POST,
             produces = "application/json")
     public Person create(@RequestBody Person persona) {
-        persona = personRepository.save(persona);
+        persona = personRepository.saveAndFlush(persona);
 
-        System.out.println("Notificando nueva persona:"+persona.getName());
+        System.out.println("Notificando nueva persona:" + persona.getName());
         notificationProcessor.onNext(persona);
 
         return persona;
@@ -75,12 +84,12 @@ public class PersonController {
             produces = "application/json")
     public void delete(@PathVariable("id") int id) {
         personRepository.deleteById(id);
+        Person person = new Person();
+        person.setId(((Double) Math.random()).intValue());
+        notificationProcessor.onNext(person);
     }
 
     private Flux<ServerSentEvent<Person>> getPersonaSSE() {
-
-        // SSE
-        // notification processor retorna un FLUX en el cual podemos estar "suscritos" cuando este tenga otro valor ...
         return notificationProcessor
                 .log()
                 .map(
@@ -113,7 +122,6 @@ public class PersonController {
     )
     public Flux<ServerSentEvent<Person>> getJobResultNotification() {
 
-        // enviar dos flujos al mismo tiempo
         return Flux.merge(
                 getNotificationHeartbeat(),
                 getPersonaSSE()

@@ -7,12 +7,13 @@ package com.umg.dw.ks.api.repository;
 
 
 import com.umg.dw.ks.core.entities.Person;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.QueryByExampleExecutor;
 
 public interface PersonRepository
-        extends PagingAndSortingRepository<Person, Integer>,
+        extends JpaRepository<Person, Integer>,
         QueryByExampleExecutor<Person>, CrudRepository<Person, Integer> {
 
 }

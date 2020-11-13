@@ -4,6 +4,7 @@ import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Label } from 'ng2-charts';
 import { BehaviorSubject } from 'rxjs';
 import { PersonService } from 'src/app/services/person.service';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,18 +13,20 @@ import { PersonService } from 'src/app/services/person.service';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private personService: PersonService) { 
+  constructor(private personService: PersonService, private productService: ProductService) {
     this.mySubject = new BehaviorSubject(null);
+    this.productSubject = new BehaviorSubject(null);
   }
 
-  people: any = [];
-  products: any = [];
+  people: Number = 0;
+  products: Number = 0;
 
   ngOnInit(): void {
     this.doNotificationSubscription();
-
-    // realizar subscription para subject (actualiza texto)
     this.doSubjectSubscription();
+
+    this.doProductNotificationSubscription();
+    this.doProductSubjectSubscription();
 
     this.updateGraph();
   }
@@ -31,7 +34,17 @@ export class DashboardComponent implements OnInit {
   public barChartOptions: ChartOptions = {
     responsive: true,
     // We use these empty structures as placeholders for dynamic theming.
-    scales: { xAxes: [{}], yAxes: [{}] },
+    scales: {
+      xAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }], yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    },
     plugins: {
       datalabels: {
         anchor: 'end',
@@ -39,14 +52,14 @@ export class DashboardComponent implements OnInit {
       }
     }
   };
-  public barChartLabels: Label[] = ['Personas','Productos'];
+  public barChartLabels: Label[] = ['Conteo general'];
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   //public barChartPlugins = [pluginDataLabels];
 
   public barChartData: ChartDataSets[] = [
-    { data: [this.people.length], label: 'Personas' },
-    { data: [0], label: 'Productos' }
+    { data: [this.people as number], label: 'Personas' },
+    { data: [this.products as number], label: 'Productos' }
   ];
 
   // events
@@ -67,12 +80,13 @@ export class DashboardComponent implements OnInit {
       (Math.random() * 100),
       56,
       (Math.random() * 100),
-      40 ];
+      40];
   }
 
   public texto: String = 'empty';
 
   private mySubject: BehaviorSubject<any>;
+  private productSubject: BehaviorSubject<any>;
 
   public doNotificationSubscription(): void {
     try {
@@ -84,6 +98,18 @@ export class DashboardComponent implements OnInit {
           this.mySubject.next(result);
 
         });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  public doProductNotificationSubscription(): void {
+    try {
+      this.productService.getProductNotification()
+        .subscribe((result) => {
+          console.log('Mensaje recibido desde producto:' + JSON.stringify(result));
+          this.productSubject.next(result);
+        });
 
     } catch (e) {
       console.log(e);
@@ -92,27 +118,43 @@ export class DashboardComponent implements OnInit {
 
   public doSubjectSubscription(): void {
     this.mySubject.subscribe((result) => {
+      console.log('actualizacion desde persona');
+      this.actualizarTexto(result);
+    });
+  }
+
+  public doProductSubjectSubscription(): void {
+    this.productSubject.subscribe((result) => {
+      console.log('actualizacion desde producto');
       this.actualizarTexto(result);
     });
   }
 
   public actualizarTexto(result: any): void {
     this.texto = this.texto + ' ' + JSON.stringify(result);
-    //actualizarGrafica() llame a la funcion reloadChart();
     this.updateGraph();
   }
 
-  public updateGraph(): void{
+  public updateGraph(): void {
     console.log('updating graph');
-    this.personService.getPersons().subscribe(
+    this.personService.getCount().subscribe(
       res => {
-        this.people = res;
+        this.people = res as Number;
       },
       err => console.error(err)
     )
 
-    console.log('people length: '+ this.people.length );
-    this.barChartData[0].data = [ this.people.length ];
+    this.productService.getProductCount().subscribe(
+      res => {
+        this.products = res as Number;
+      },
+      err => console.error(err)
+    )
+
+    console.log('people length: ' + this.people);
+    console.log('product list length: ' + this.products);
+    this.barChartData[0].data = [this.people as number];
+    this.barChartData[1].data = [this.products as number];
   }
 
 }

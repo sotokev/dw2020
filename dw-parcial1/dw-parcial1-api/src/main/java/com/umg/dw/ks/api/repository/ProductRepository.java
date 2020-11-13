@@ -7,11 +7,12 @@ package com.umg.dw.ks.api.repository;
 
 
 import com.umg.dw.ks.core.entities.Product;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.QueryByExampleExecutor;
 
 public interface ProductRepository
-        extends PagingAndSortingRepository<Product, Integer>,
+        extends JpaRepository<Product, Integer>,
         QueryByExampleExecutor<Product> {
 
 }
