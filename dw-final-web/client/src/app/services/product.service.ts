@@ -42,7 +42,7 @@ export class ProductService {
 
       const url: any = this.API_URI + '/notification/sse';
 
-      const eventSource = new EventSource(url);
+      const eventSource = new EventSource(url); 
 
       eventSource.onmessage = (event) => {
         console.log('Received event: ', event);

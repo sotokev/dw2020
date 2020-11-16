@@ -8,4 +8,5 @@ export interface Person {
     otherPhones?: string;
     personalDocument?: string;
     phoneNumber?: string;
+    user?: string;
 }

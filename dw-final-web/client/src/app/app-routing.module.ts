@@ -6,6 +6,7 @@ import { PersonFormComponent } from "./components/person-form/person-form.compon
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ProductUserComponent } from './components/product-user/product-user.component';
 
 
 const routes: Routes = [
@@ -41,6 +42,10 @@ const routes: Routes = [
   {
     path: 'product/edit/:id',
     component: ProductFormComponent
+  },
+  {
+    path: 'product_by_user',
+    component: ProductUserComponent
   }
 ];
 

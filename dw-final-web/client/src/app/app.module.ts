@@ -17,6 +17,8 @@ import { ProductService } from "./services/product.service";
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 import { ChartsModule } from "ng2-charts";
+import { ProductUserComponent } from './components/product-user/product-user.component';
+import { ProductByUserService } from './services/product-by-user.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { ChartsModule } from "ng2-charts";
     PersonListComponent,
     ProductListComponent,
     ProductFormComponent,
-    DashboardComponent
+    DashboardComponent,
+    ProductUserComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +40,8 @@ import { ChartsModule } from "ng2-charts";
   ],
   providers: [
     PersonService,
-    ProductService
+    ProductService,
+    ProductByUserService
   ],
   bootstrap: [AppComponent]
 })

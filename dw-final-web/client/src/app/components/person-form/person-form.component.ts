@@ -22,7 +22,8 @@ export class PersonFormComponent implements OnInit {
     name: '',
     otherPhones: '',
     personalDocument: '',
-    phoneNumber: ''
+    phoneNumber: '',
+    user: ''
   };
 
   edit: boolean = false;

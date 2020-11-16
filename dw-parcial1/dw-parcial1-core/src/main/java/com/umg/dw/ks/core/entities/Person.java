@@ -36,6 +36,9 @@ public class Person implements Serializable {
     @Column(name = "other_phones")
     private String otherPhones;
 
+    @Column(name = "user")
+    private String user;
+
     public Person() {
     }
 
@@ -113,6 +116,14 @@ public class Person implements Serializable {
 
     public void setOtherPhones(String otherPhones) {
         this.otherPhones = otherPhones;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 
     @Override
